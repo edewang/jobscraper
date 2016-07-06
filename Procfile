@@ -1,1 +1,1 @@
-web: python BioSpace_Scraper.py
+web: vendor/bin/heroku-php-apache2 web/
