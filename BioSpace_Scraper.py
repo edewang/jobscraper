@@ -1,14 +1,15 @@
 
 # coding: utf-8
 
-# In[2]:
+# In[8]:
 
 import urllib.request
 from bs4 import BeautifulSoup
 import re
+f = open('joblist.txt', 'w')
 
 
-# In[ ]:
+# In[9]:
 
 url = "http://www.biospace.com/jobs/job-search-query/?PositionTypeList=FULL+TIME&Location=CA&Radius=50&State=California&Country=United+States&PageSize=10&PageIndex=1"
 
@@ -24,8 +25,11 @@ def job_grabber(url, start=1):
             job_location = job_employer.find_next_sibling()
             job_desc = job_location.find_next_sibling().find_next_sibling()
             print(str(start) + ". " + str(job_title.a))
+            f.write(str(start) + ". " + str(job_title.a))
             print(job_employer.get_text(strip=True) + "\t" + re.sub('\s{2,}', '', job_location.get_text(strip=True)))
+            f.write(job_employer.get_text(strip=True) + "\t" + re.sub('\s{2,}', '', job_location.get_text(strip=True)))
             print(re.sub('\n\n', '\n', job_desc.get_text(strip=True)) + "\n")
+            f.write(re.sub('\n\n', '\n', job_desc.get_text(strip=True)) + "\n")
             start += 1
         else:
             done = True
